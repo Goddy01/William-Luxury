@@ -1,0 +1,165 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import { Container } from "@/components/ui/Container";
+import { Ornament } from "@/components/ui/Ornament";
+import { siteContact } from "@/data/contact";
+import { SITE_LOCATION } from "@/lib/site";
+
+export function Footer() {
+  const t = useTranslations("footer");
+  const nav = useTranslations("nav");
+  const [email, setEmail] = useState("");
+  const [done, setDone] = useState(false);
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setDone(true);
+    setEmail("");
+  };
+
+  return (
+    <footer className="relative border-t border-brass/15 bg-navy text-cream">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brass/50 to-transparent" />
+
+      <Container className="py-16 sm:py-24 md:py-32">
+        <div className="mb-10 text-center sm:mb-16">
+          <p className="font-display text-3xl font-medium tracking-[0.08em] sm:text-4xl md:text-5xl">
+            William Broker
+          </p>
+          <p className="mt-2 text-[10px] uppercase tracking-royal text-brass-light">
+            Yacht & Boat
+          </p>
+          <Ornament light className="mt-6 max-w-[5rem]" />
+          <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-cream/50">
+            {t("tagline")}
+          </p>
+        </div>
+
+        <div className="grid gap-10 border-t border-brass/15 pt-10 sm:gap-14 sm:pt-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
+          <div className="grid grid-cols-1 gap-8 min-[480px]:grid-cols-2 sm:col-span-2 sm:grid-cols-3 sm:gap-10 lg:col-span-7">
+            <div>
+              <p className="mb-5 text-[10px] uppercase tracking-royal text-brass">
+                {t("explore")}
+              </p>
+              <ul className="space-y-3.5 text-sm text-cream/60">
+                <li>
+                  <Link href="/charter" className="transition-colors hover:text-brass-light">
+                    {nav("charter")}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/helicopter" className="transition-colors hover:text-brass-light">
+                    {nav("helicopter")}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/transfers" className="transition-colors hover:text-brass-light">
+                    {nav("transfers")}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/sales" className="transition-colors hover:text-brass-light">
+                    {nav("sales")}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/destinations" className="transition-colors hover:text-brass-light">
+                    {nav("destinations")}
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <p className="mb-5 text-[10px] uppercase tracking-royal text-brass">
+                {t("company")}
+              </p>
+              <ul className="space-y-3.5 text-sm text-cream/60">
+                <li>
+                  <Link href="/contact" className="transition-colors hover:text-brass-light">
+                    {nav("contact")}
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href={`mailto:${siteContact.email}`}
+                    className="transition-colors hover:text-brass-light"
+                  >
+                    {siteContact.email}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`tel:${siteContact.whatsapp}`}
+                    className="transition-colors hover:text-brass-light"
+                  >
+                    {siteContact.phoneDisplay}
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <p className="mb-5 text-[10px] uppercase tracking-royal text-brass">
+                {t("legal")}
+              </p>
+              <ul className="space-y-3.5 text-sm text-cream/60">
+                <li>
+                  <span className="cursor-default">{t("privacy")}</span>
+                </li>
+                <li>
+                  <span className="cursor-default">{t("terms")}</span>
+                </li>
+              </ul>
+              <div className="mt-8 flex gap-6 text-[10px] uppercase tracking-[0.2em] text-cream/40">
+                <a href="#" className="transition-colors hover:text-brass-light">
+                  {t("socialInstagram")}
+                </a>
+                <a href="#" className="transition-colors hover:text-brass-light">
+                  {t("socialLinkedin")}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5 lg:pl-8">
+            <p className="mb-5 text-[10px] uppercase tracking-royal text-brass">
+              {t("newsletter")}
+            </p>
+            {done ? (
+              <p className="font-display text-xl italic text-brass-light">
+                Grazie · Thank you
+              </p>
+            ) : (
+              <form onSubmit={onSubmit} className="flex flex-col gap-3">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={t("newsletterPlaceholder")}
+                  className="border-b border-brass/25 bg-transparent py-3.5 text-sm text-cream placeholder:text-cream/30 outline-none transition-colors focus:border-brass"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="self-start pt-3 text-[10px] uppercase tracking-[0.22em] text-cream/70 transition-colors hover:text-brass-light"
+                >
+                  {t("newsletterSubmit")}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-20 flex flex-col gap-3 border-t border-brass/15 pt-8 text-[11px] tracking-wide text-cream/35 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {new Date().getFullYear()} William Broker Yacht & Boat. {t("rights")}
+          </p>
+          <p className="uppercase tracking-[0.18em]">{SITE_LOCATION}</p>
+        </div>
+      </Container>
+    </footer>
+  );
+}
