@@ -3,7 +3,8 @@ const U = (id: string, w = 1600) =>
 
 export const siteImages = {
   hero: U("photo-1534274988757-a28bf1a57c17", 2400),
-  og: U("photo-1534274988757-a28bf1a57c17", 1200),
+  /** 1200×630 JPG for WhatsApp / social link previews */
+  og: "/images/og.jpg",
   serviceCharter: U("photo-1567899378494-47b22a2ae96a", 1400),
   serviceHelicopter: U("photo-1578575437130-527eed3abbec", 1400),
   serviceTransfers: U("photo-1449965408869-eaa3f722e40d", 1400),

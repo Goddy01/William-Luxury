@@ -39,6 +39,12 @@ export async function generateMetadata({
   const siteUrl = getSiteUrl();
   const title = t("title");
   const description = t("description");
+  const ogImage = {
+    url: "/images/og.jpg",
+    width: 1200,
+    height: 630,
+    alt: SITE_NAME,
+  };
 
   return {
     metadataBase: new URL(siteUrl),
@@ -56,11 +62,13 @@ export async function generateMetadata({
       locale: locale === "it" ? "it_IT" : "en_US",
       alternateLocale: locale === "it" ? ["en_US"] : ["it_IT"],
       url: `/${locale}`,
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [ogImage.url],
     },
     robots: {
       index: true,
